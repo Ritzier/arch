@@ -7,6 +7,10 @@ configuration {
   display-drun: "Apps";
   display-window: "Window";
   sidebar-mode: true;
+  
+  matching: "prefix";
+  tokenize: false;
+  sort: false;
 }
 
 /* @theme "catppuccin-mocha" */
