@@ -38,3 +38,6 @@ xclip xsel
 
 # Podman
 podman podman-compose fuse-overlayfs
+
+# Dolphin Thumbnails
+ffmpegthumbs
