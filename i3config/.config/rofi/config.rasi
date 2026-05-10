@@ -13,7 +13,7 @@ configuration {
   sort: false;
 }
 
-/* @theme "catppuccin-mocha" */
+@theme "catppuccin-mocha"
 /* @theme "catppuccin-frappe" */
-@theme "catppuccin-macchiato"
+/* @theme "catppuccin-macchiato" */
 /* @theme "catppuccin-latte" */
