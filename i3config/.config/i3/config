@@ -37,6 +37,7 @@ bindsym $mod+Shift+slash kill
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show
 bindsym $mod+shift+d exec --no-startup-id rofi -show p -modi p:rofi-power-menu -font "JetBrainsMonoNL NF 15" -width 20 -line 6
+bindsym $mod+period exec --no-startup-id rofi -tokenize -modi emoji -show emoji
 bindsym $mod+y exec --no-startup-id bash $HOME/.config/rofi/change-font.sh
 
 # Polybar toggle

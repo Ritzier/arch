@@ -1,5 +1,5 @@
 # i3
-i3 xorg rofi polybar
+i3 xorg rofi polybar rofi-emoji
 
 # Theme
 adwaita-icon-theme gnome-themes-extra breeze
