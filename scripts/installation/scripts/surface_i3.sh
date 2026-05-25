@@ -36,10 +36,10 @@ bash "$SCRIPT_DIR/i3/aur_packages.sh" "$AUR_PACKAGES"
 bash "$SCRIPT_DIR/i3/copy_config.sh"
 
 # ---- Rust Toolchain ----
-bash "$SCRIPT_DIR/i3/rust.sh"
+bash "$SCRIPT_DIR/i3/rust.sh" || true
 
 # ---- Systemctl User ----
-bash "$SCRIPT_DIR/i3/systemctl.sh" "$CONFIG"
+bash "$SCRIPT_DIR/i3/systemctl.sh" "$CONFIG" || true
 
 # ---- VAAPI ----
 bash "$SCRIPT_DIR/i3/vaapi.sh"

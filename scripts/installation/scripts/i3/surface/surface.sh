@@ -2,14 +2,14 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/../system/common.sh"
+source "$SCRIPT_DIR/../../system/common.sh"
 
 info "[+] Surface environment setup"
 
 # -----------------------------
 # 1. Xresources
 # -----------------------------
-local xres="$HOME/.Xresources"
+xres="$HOME/.Xresources"
 
 if [[ ! -f "$xres" ]]; then
     cat >"$xres" <<'EOF'
@@ -29,7 +29,7 @@ fi
 # -----------------------------
 # 2. xinitrc
 # -----------------------------
-local xinit="$HOME/.xinitrc"
+xinit="$HOME/.xinitrc"
 
 if [[ ! -f "$xinit" ]]; then
     echo "xrdb -merge ~/.Xresources" >"$xinit"
