@@ -20,6 +20,9 @@ for f in "${FIELDS[@]}"; do
     [[ -n "${!f:-}" ]] || fail "missing field: $f "
 done
 
+# ---- Fix Cache ----
+bash "$SCRIPT_DIR/system/fix_cache.sh"
+
 # ---- Install packages ----
 bash "$SCRIPT_DIR/system/packages.sh" "$PACKAGES"
 
