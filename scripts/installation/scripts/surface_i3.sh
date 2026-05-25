@@ -3,8 +3,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG="$SCRIPT_DIR/../config/surface_i3.conf"
-PACKAGES="$SCRIPT_DIR/../i3_packages/surfaces"
-AUR_PACKAGES="$SCRIPT_DIR/../i3_packages/aur_package"
+PACKAGES="$SCRIPT_DIR/../i3_packages/surface"
+AUR_PACKAGES="$SCRIPT_DIR/../i3_packages/aur_packages"
 
 # Load `common` utils
 source "$SCRIPT_DIR/system/common.sh"
