@@ -25,7 +25,7 @@ fi
 rustup default stable
 
 # ---- Temp build dir ----
-BUILD_DIR="$(mktemp -d /tmp/paru-build)"
+BUILD_DIR="$(mktemp -d)"
 trap 'rm -rf "$BUILD_DIR"' EXIT
 
 info "Using build dir: $BUILD_DIR"

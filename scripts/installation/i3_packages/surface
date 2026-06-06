@@ -2,13 +2,14 @@
 i3 xorg rofi polybar rofi-emoji
 
 # Theme
-adwaita-icon-theme gnome-themes-extra breeze
+adwaita-icon-theme gnome-themes-extra breeze breeze-gtk plasma-workspace kde-gtk-config qt6ct qt5ct
 
 # Tool
-unclutter picom gamemode tree dolphin maim mpv
+unclutter picom gamemode tree dolphin maim mpv pkgfile
 
 # Browser
-firefox firefox-tridactyl qutebrowser
+firefox firefox-tridactyl qutebrowser plasma-browser-integration
+
 # Dependecies
 python-adblock xdg-desktop-portal xdg-desktop-portal-gtk
 
