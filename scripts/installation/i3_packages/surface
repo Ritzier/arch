@@ -5,7 +5,7 @@ i3 xorg rofi polybar rofi-emoji
 adwaita-icon-theme gnome-themes-extra breeze breeze-gtk plasma-workspace kde-gtk-config qt6ct qt5ct
 
 # Tool
-unclutter picom gamemode tree dolphin maim mpv pkgfile
+unclutter picom gamemode tree dolphin maim mpv pkgfile xdotool
 
 # Browser
 firefox firefox-tridactyl qutebrowser plasma-browser-integration
