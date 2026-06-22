@@ -22,3 +22,19 @@
 ```bash
 :colourscheme --url https://raw.githubusercontent.com/devnullvoid/tridactyl/main/themes/catppuccin-mocha-cli.css catppuccin-mocha-cli
 ```
+
+## 3. Firefor disable `Alt` popup menu bar
+
+1. `about:config` in url
+
+2. Disable `Alt` popup the menu bar
+
+```
+ui.key.menuAccessKeyFocuses = 0
+```
+
+3. Disable `Alt` combo key (`Alt+F`, `Alt+E`, etc.)
+
+```
+ui.key.menuAccessKey = 0
+```
