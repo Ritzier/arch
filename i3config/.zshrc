@@ -52,27 +52,6 @@ ai-commit() {
     " | sed '/^```/d'
 }
 
-ai-documentation() {
-    local input="$1"
-    echo "Input: ${input}"
-
-    # local model="llama3.1:8b"
-    # local model="deepseek-coder:6.7b"
-    # local model="gemma4:12b"
-    local model="qwen2.5-coder:14b"
-    # local model="qwen2.5-coder:7b"
-
-        local prompt
-    prompt=$(<~/scripts/prompt/rust-documentation.prompt)
-
-
-    ollama run "${model}" "
-$prompt
-Here is the code:
-$input
-"
-}
-
 # ==============================================================================
 # AI Code Refactoring Helper (`ai-prompt`)
 #
