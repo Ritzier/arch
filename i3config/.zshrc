@@ -33,3 +33,42 @@ export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 # Example to add a cli completion
 # mytool completion zsh > ~/.oh-my-zsh/custom/completions/_mytool
 fpath=(~/.oh-my-zsh/custom/completions $fpath)
+
+# Ollama functions
+ai-commit() {
+    # local model="llama3.1:8b"
+    # local model="deepseek-coder:6.7b"
+    # local model="gemma4:12b"
+    local model="qwen2.5-coder:14b"
+    # local model="qwen2.5-coder:7b"
+
+    local prompt=$(cat ~/scripts/prompt/git-commit.prompt)
+
+    local git_output=$(git --no-pager diff --cached)
+
+    ollama run "${model}" "
+    $prompt
+    $git_output
+    " | sed '/^```/d'
+}
+
+ai-documentation() {
+    local input="$1"
+    echo "Input: ${input}"
+
+    # local model="llama3.1:8b"
+    # local model="deepseek-coder:6.7b"
+    # local model="gemma4:12b"
+    local model="qwen2.5-coder:14b"
+    # local model="qwen2.5-coder:7b"
+
+        local prompt
+    prompt=$(<~/scripts/prompt/rust-documentation.prompt)
+
+
+    ollama run "${model}" "
+$prompt
+Here is the code:
+$input
+"
+}
