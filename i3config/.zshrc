@@ -29,3 +29,7 @@ alias "v=xclip -selection clipboard -o"
 export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 
 # export TMPDIR=/mnt/nvme/tmp
+
+# Example to add a cli completion
+# mytool completion zsh > ~/.oh-my-zsh/custom/completions/_mytool
+fpath=(~/.oh-my-zsh/custom/completions $fpath)
