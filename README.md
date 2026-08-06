@@ -1,3 +1,9 @@
+# エドワード・ウォン・ハウ・ペペル・チブルスキー4世
+
+# 爱德华·王·侯·皮皮鲁·提布鲁斯基四世
+
+# Edward Wong Hau Pepelu Tivruski IV
+
 ![](./Edward/Ed-balance.webp)
 
 ![](./Edward/Ed-flcl.webp)
