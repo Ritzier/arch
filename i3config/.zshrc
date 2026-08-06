@@ -72,3 +72,76 @@ Here is the code:
 $input
 "
 }
+
+# ==============================================================================
+# AI Code Refactoring Helper (`ai-prompt`)
+#
+# Description:
+#   Pipes standard input (e.g., source code) through Ollama using a custom prompt 
+#   template based on the specified language/extension.
+#
+# Prerequisites:
+#   1. Store prompt templates under: ~/.config/scripts/prompt/language/ (or ~/scripts/prompt/language/)
+#      Supported naming: <lang>, <lang>.txt, <lang>.md, or <lang>.prompt (e.g., bash.md, python.txt)
+#   2. Ensure Ollama is installed and running locally.
+#
+# Usage:
+#   cat code.sh | ai-prompt bash
+#   git diff main | ai-prompt python
+# ==============================================================================
+ai-prompt() {
+    # ----------------
+    # Input validation
+    # ----------------
+    # Require piped standard input (fail if running interactively in terminal)
+    if [[ -t 0 ]]; then
+        echo "Error: No standard input detected. Usage: cat file | ai-prompt <language>" >&2
+        return 1
+    fi
+
+    # Require target language / extension argument
+    local lang="${1:-}"
+    if [[ -z "$lang" ]]; then
+        echo "Error: Please specify a prompt language (e.g., ai-prompt bash)" >&2
+        return 1
+    fi
+
+    # ----------------
+    # Configuration
+    # ----------------
+    local model="qwen2.5-coder:14b"
+    local prompt_dir="${HOME}/scripts/prompt/language"
+    local input
+    input=$(cat)
+
+    # ----------------
+    # Resolve prompt file
+    # ----------------
+    # Search for matching template with supported extensions
+    local prompt_file=""
+    for ext in "" ".txt" ".md" ".prompt"; do
+        if [[ -f "${prompt_dir}/${lang}${ext}" ]]; then
+            prompt_file="${prompt_dir}/${lang}${ext}"
+            break
+        fi
+    done
+
+    # Abort if no matching prompt template exists
+    if [[ -z "$prompt_file" ]]; then
+        echo "Error: Prompt file for '${lang}' not found under ${prompt_dir}" >&2
+        return 1
+    fi
+
+    local prompt
+    prompt=$(cat "$prompt_file")
+
+    # ----------------
+    # Execute LLM inference
+    # ----------------
+    ollama run "${model}" "
+${prompt}
+
+Here is the code:
+${input}
+"
+}

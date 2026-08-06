@@ -1,0 +1,19 @@
+Please refactor and polish the provided Bash script according to the following guidelines:
+
+1. Comment Headers: Convert all section headers into the following 3-line format (all lowercase title):
+   ------------------------------
+   title goes here
+   ------------------------------
+
+2. Safety & Error Handling:
+   - Validate input arguments (e.g., check that required positional arguments are provided before referencing them).
+   - Direct all error outputs, usage instructions, and failure logs to standard error (`>&2`).
+   - Ensure explicit non-zero exit codes on failure.
+
+3. Code Improvements & Best Practices:
+   - Fix hardcoded paths or leftover debug values, using variables dynamically instead.
+   - Simplify repetitive constructs (like collapsing redundant `case` arms or array appends).
+   - Trigger `systemctl daemon-reload` whenever systemd service files are modified.
+   - Double-check inline logic for edge cases (e.g., non-existent files, suppressed stat errors).
+
+4. Polish & Formatting: Maintain standard Bash conventions, 4-space indentations, clear variable names, and clean control flow. Present key improvements summarized before the refactored code block.
