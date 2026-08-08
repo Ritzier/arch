@@ -41,44 +41,28 @@ require_package "${packages[@]}"
 # ------------------------------
 # configure ollama storage directory
 # ------------------------------
+OLLAMA_OVERRIDE_DIR="/etc/systemd/system/ollama.service.d"
+OLLAMA_OVERRIDE_FILE="$OLLAMA_OVERRIDE_DIR/override.conf"
+
+sudo mkdir -p "$OLLAMA_OVERRIDE_DIR"
+sudo tee "$OLLAMA_OVERRIDE_FILE" >/dev/null <<EOF
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0:11434"
+Environment="OLLAMA_ORIGINS=*"
+EOF
+
+# Configure custom model storage directory
 if [[ -v OLLAMA_PATH ]]; then
-    # Create the directory if it doesn't exist
-    if [[ ! -d "$OLLAMA_PATH" ]]; then
-        sudo mkdir -p "$OLLAMA_PATH"
-    fi
-
-    # Ensure the directory is owned by ollama
-    current_owner=$(stat -c '%U:%G' "$OLLAMA_PATH" 2>/dev/null || true)
-    if [[ "$current_owner" != "ollama:ollama" ]]; then
-        sudo chown -R ollama:ollama "$OLLAMA_PATH"
-        sudo chmod 755 "$OLLAMA_PATH"
-    fi
-fi
-
-# ------------------------------
-# modify systemd unit file configuration
-# ------------------------------
-SERVICE_FILE=/usr/lib/systemd/system/ollama.service
-
-if [[ -f "$SERVICE_FILE" ]]; then
-    # Remove existing OLLAMA_MODELS lines
-    sudo sed -i '/^[[:space:]]*#\?[[:space:]]*Environment="OLLAMA_MODELS=/d' "$SERVICE_FILE"
-
-    if [[ -n "${OLLAMA_PATH:-}" ]]; then
-        # Insert custom path while keeping default commented for reference
-        sudo sed -i '/^Environment="HOME=/a # Environment="OLLAMA_MODELS=/var/lib/ollama"\nEnvironment="OLLAMA_MODELS='"$OLLAMA_PATH"'"' "$SERVICE_FILE"
-    else
-        # Restore default configuration
-        sudo sed -i '/^Environment="HOME=/a Environment="OLLAMA_MODELS=/var/lib/ollama"' "$SERVICE_FILE"
-    fi
-
-    sudo systemctl daemon-reload
+    sudo tee -a "$OLLAMA_OVERRIDE_FILE" >/dev/null <<EOF
+Environment="OLLAMA_MODELS=$OLLAMA_PATH" 
+EOF
 fi
 
 # ------------------------------
 # enable and restart service
 # ------------------------------
 SERVICE=ollama
+sudo systemctl daemon-reload
 if systemctl is-active --quiet "$SERVICE"; then
     echo "Restarting $SERVICE..."
     sudo systemctl restart "$SERVICE"
