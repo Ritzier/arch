@@ -78,12 +78,12 @@ done
 # -----------------------------
 # 5. Copy .local
 # -----------------------------
-if [[ -d "src/scripts" ]]; then
+if [[ -d "$src/scripts" ]]; then
     info "[+] Syncing ~/scripts"
 
     mkdir -p "$HOME/scripts"
 
-    rsync -a --update "$src/scripts" "$HOME/scripts"
+    rsync -a --update "$src/scripts/" "$HOME/scripts/"
 fi
 
 shopt -u dotglob nullglob
