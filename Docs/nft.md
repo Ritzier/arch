@@ -50,3 +50,35 @@ table inet filter {
     }
 }
 ```
+
+```default.conf
+table inet filter {
+    chain input {
+        type filter hook input priority filter; policy drop;
+
+        # Local traffic
+        iif "lo" accept
+
+        # Allow replies to connections initiated by this host
+        ct state established,related accept
+
+        # Drop malformed/invalid connections
+        ct state invalid drop
+
+        # Essential ICMP / ICMPv6
+        ip protocol icmp accept
+        ip6 nexthdr ipv6-icmp accept
+
+        # Log everything else before dropping
+        log prefix "NFT DROP: " flags all
+    }
+
+    chain forward {
+        type filter hook forward priority filter; policy drop;
+    }
+
+    chain output {
+        type filter hook output priority filter; policy accept;
+    }
+}
+```
