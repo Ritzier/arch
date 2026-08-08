@@ -16,43 +16,37 @@ sudo nft flush ruleset
 
 ```nftables.conf
 table inet filter {
-  chain input {
-    type filter hook input priority 0;
+	chain input {
+        type filter hook input priority filter; policy drop;
 
-    # loopback
-    iif lo accept
+        # loopback
+		iif "lo" accept
 
-    # allow established connections
-    ct state established,related accept
+		ct state established,related accept
+        ct state invalid drop
 
-    # ICMP IPv4
-    ip protocol icmp accept
+		ip protocol icmp accept
+		ip6 nexthdr ipv6-icmp accept
 
-    # ICMP IPv6
-    ip6 nexthdr icmpv6 accept
+        # LAN-only ports (TCP)
+		iifname "enp42s0" ip saddr 192.168.1.0/24 tcp dport { 22, 25565, 5000, 8000-8999, 4000, 11434 } accept
+        # LAN-only ports (UDP)
+		iifname "enp42s0" ip saddr 192.168.1.0/24 udp dport { 49152, 8000-8999 } accept
+        # LAN ICMP
+		iifname "enp42s0" ip protocol icmp accept
 
-    # allow LAN only
-    iifname "enp42s0" ip saddr 192.168.1.0/24 tcp dport { 22, 8000-8999 } accept
-    iifname "enp42s0" ip saddr 192.168.1.0/24 udp dport 8000-8999 accept
+        # Minecraft for WAN but only IPv6
+        meta nfproto ipv6 tcp dport 25565 accept
 
-    # ping only from LAN
-    iifname "enp42s0" ip protocol icmp accept
+        log prefix "NFT DROP: " flags all
+	}
 
-    # log everything else
-    log prefix "NFT DROP: " flags all
+    chain forward {
+        type filter hook forward priority filter; policy drop;
+    }
 
-    # drop everything else
-    drop
-  }
-
-  chain forward {
-    type filter hook forward priority 0;
-    drop
-  }
-
-  chain output {
-    type filter hook output priority 0;
-    accept
-  }
+    chain output {
+        type filter hook output priority filter; policy accept;
+    }
 }
 ```
