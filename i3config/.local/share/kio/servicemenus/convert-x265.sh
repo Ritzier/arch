@@ -1,10 +1,15 @@
 #!/bin/bash
+set -euo pipefail
+
+QUEUE_DIR="/mnt/mergerfs/ffmpeg"
+
+mkdir -p "$QUEUE_DIR"
 
 for file in "$@"; do
-    output="${file%.*}-h265.mp4"
-    if [ -f "$output" ]; then
-        echo "Skipping $file - output already exists: $output"
+    [[ -f "$file" ]] || {
+        echo "Skipping missing file: $file"
         continue
-    fi
-    ffmpeg -i "$file" -c:v libx265 -vtag hvc1 -c:a copy "$output"
+    }
+
+    ln -s -- "$file" "$QUEUE_DIR/$(basename "$file")"
 done
