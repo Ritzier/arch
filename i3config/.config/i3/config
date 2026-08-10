@@ -18,8 +18,10 @@ exec_always --no-startup-id xrdb -merge ~/.Xresources
 exec --no-startup-id systemctl --user start plasma-powerdevil # Power Management
 
 # Personal bind
-bindsym $mod+shift+p exec --no-startup-id maim --select "$HOME/Pictures/$(date +'%d-%m-%Y: %H-%M-%S').png"
-bindsym $mod+p exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date +'%d-%m-%Y: %H-%M-%S').png"
+bindsym $mod+p exec --no-startup-id mkdir -p "$HOME/Pictures" && maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date +'%Y-%m-%d_%H-%M-%S').png"
+# The --hidecursor flag hides the cursor during selection
+bindsym $mod+shift+p exec --no-startup-id mkdir -p "$HOME/Pictures" && maim --select --hidecursor "$HOME/Pictures/$(date +'%Y-%m-%d_%H-%M-%S').png"
+
 #Disable Title bar
 for_window [class="^.*"] border pixel 3
 default_border pixel 1
