@@ -29,7 +29,7 @@ default_floating_border pixel 0
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec GLFW_IM_MODULE=ibus kitty # GLFW_IM_MODULE to enable fcitx5
 
 # kill focused window
 bindsym $mod+Shift+slash kill
