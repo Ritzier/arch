@@ -36,6 +36,12 @@ fpath=(~/.oh-my-zsh/custom/completions $fpath)
 
 # Ollama functions
 ai-commit() {
+    # Check if there are staged changes
+    if ! git diff --cached --quiet 2>/dev/null; then
+        echo "❌ No staged changes found. Use 'git add' to stage files first."
+        return 1
+    fi
+    
     # local model="llama3.1:8b"
     # local model="deepseek-coder:6.7b"
     # local model="gemma4:12b"
@@ -43,6 +49,11 @@ ai-commit() {
     # local model="qwen2.5-coder:7b"
 
     local prompt=$(cat ~/scripts/prompt/git-commit.prompt)
+    if [[ -n "$1" ]]; then
+        prompt="${prompt}
+
+Additional instruction: $*"
+    fi
 
     local git_output=$(git --no-pager diff --cached)
 
