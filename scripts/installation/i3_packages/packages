@@ -41,3 +41,6 @@ podman podman-compose fuse-overlayfs
 
 # Dolphin Thumbnails
 ffmpegthumbs
+
+# Extract tool
+ark 7zip
