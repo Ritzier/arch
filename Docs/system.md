@@ -178,6 +178,19 @@ rustup target add wasm32-unknown-unknown
 cargo binstall leptosfmt
 ```
 
+The official `leptosfmt` doesn't format attributes whose names contain `--`, such as the Leptos CSS custom property
+binding `style:--sbw`
+
+```rust
+<div
+    style:--sbw=move || if sidebar_open.get() { "250px" } else { "0px" }
+>
+```
+
+```
+cargo binstall cargo-leptos leptosfmt -y
+```
+
 ### Other Rust Binary
 
 - `cargo-update`: Easy update cargo binary packages

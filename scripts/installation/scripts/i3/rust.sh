@@ -36,7 +36,7 @@ fi
 # -----------------------------
 # Rust tools
 # -----------------------------
-cargo binstall cargo-leptos leptosfmt -y
+cargo install --git https://github.com/bram209/leptosfmt --locked --force
 
 # -----------------------------
 # LspMux
