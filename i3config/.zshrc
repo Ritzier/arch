@@ -135,3 +135,7 @@ Here is the code:
 ${input}
 "
 }
+
+checkport() {
+    lsof -ti:"${1}" | xargs -r ps -o pid,args -p
+}
